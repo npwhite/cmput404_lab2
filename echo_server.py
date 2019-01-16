@@ -22,6 +22,7 @@ def main():
             conn, addr = s.accept()
             with conn:
                 print(conn)
+                print(addr)
                 full_data = b""
                 while True:
                     data = conn.recv(BUFFER_SIZE)
@@ -33,31 +34,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-# # ------------------------------------
-# # My solution
-# import socket
-#
-# HOST = ''
-# PORT = 8001
-#
-# with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-#     # socket.setsockopt(level, optname, value)
-#     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-#     s.bind((HOST, PORT))
-#     s.listen(1)
-#     print("Listening...")
-#
-#     # addr is pair (host, port) where port is the port used by client
-#     conn, addr = s.accept()
-#     with conn:
-#         print('Connected by', addr)
-#         data = conn.recv(1024)
-#         print("Server Side: {}".format(data))
-#         conn.sendall(data)

@@ -7,8 +7,7 @@ PORT = 8081
 BUFFER_SIZE = 1024
 
 addr_info = socket.getaddrinfo("www.google.com", 80, proto=socket.SOL_TCP)
-(family, socktype, proto, canonname, sockaddr) = addr_info[0] # should be getting the IPv4 I think,
-
+(family, socktype, proto, canonname, google_sockaddr) = addr_info[1] # should be getting the IPv4 I think,
 
 def main():
 
@@ -25,7 +24,7 @@ def main():
                 print("Connected by:", addr)
                 with socket.socket(family, socktype) as proxy_end:
                     # Connect to google
-                    proxy_end.connect(sockaddr)
+                    proxy_end.connect(google_sockaddr)
 
                     # Send incoming conn data to google
                     send_full_data = b""

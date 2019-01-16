@@ -5,9 +5,8 @@ HOST = ""
 PORT = 8081
 BUFFER_SIZE = 1024
 
-payload = """GET / HTTP/1.0
-Host: {HOST}
-""".format(HOST=HOST)
+payload = "GET / HTTP/1.0\r\n\r\n"
+
 
 def conn_socket(addr_tup):
     (family, socktype, proto, canonname, sockaddr) = addr_tup
@@ -34,11 +33,8 @@ def conn_socket(addr_tup):
 
 def main():
     addr_info = socket.getaddrinfo(HOST, PORT, proto=socket.SOL_TCP)
-    #print(addr_info)
-    for addr_tup in addr_info:
-        conn_socket(addr_tup)
-        # only ipv4 I guess
-        break
+    addr_tup = addr_info[1]
+    conn_socket(addr_tup)
 
 if __name__ == "__main__":
     main()

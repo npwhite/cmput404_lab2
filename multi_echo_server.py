@@ -14,15 +14,21 @@ BUFFER_SIZE = 1024
 
 def handle_echo(conn, addr):
     with conn:
-        print(conn)
+        #print(conn)
         full_data = b""
         while True:
             data = conn.recv(BUFFER_SIZE)
+
+            print("received {}".format(data))
             if not data:
                 break
             full_data += data
-        time.sleep(0.5)
+        time.sleep(2)
+        print("done nap")
+        print("sending data...")
         conn.sendall(full_data)
+        conn.shutdown(socket.SHUT_WR)
+        print("data sent")
 
 
 def main():
@@ -36,6 +42,7 @@ def main():
 
         while True:
             conn, addr = s.accept()
+            #conn.setblocking(0)
             p = Process(target=handle_echo, args=(conn, addr))
             p.daemon = True
             p.start()
